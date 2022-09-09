@@ -42,8 +42,6 @@ main(int argc, char *argv[])
 
   target = atoi(argv[1]);
 
-  printf(1, "target:%d\n", target);
-
   if(argc <= 1){
     hcat(0);
     exit();
