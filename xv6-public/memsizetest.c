@@ -12,7 +12,7 @@ int main(void)
 
 	printf(1, "Allocating more memory\n");
 	msize = memsize();
-	printf(1, "The process is using %dB\n");
+	printf(1, "The process is using %dB\n", msize);
 
 	free(tmp);
 	printf(1, "Freeing memory\n");

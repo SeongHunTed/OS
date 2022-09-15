@@ -100,8 +100,9 @@ sys_memsize(void)
 }
 
 int
-sys_trace(int mask)
+sys_trace(void)
 {
-	mask = 1;
-	return mask;
+	int n;
+
+  return n;
 }
