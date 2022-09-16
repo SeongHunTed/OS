@@ -102,7 +102,10 @@ sys_memsize(void)
 int
 sys_trace(void)
 {
-	int n;
-
-  return n;
+  int n;
+  n = argint(0, &myproc()->mask);
+  if (n < 0) {
+	  return -1;
+  }
+  return 0;
 }
