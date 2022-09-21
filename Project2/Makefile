@@ -198,7 +198,7 @@ clean:
 
 # make a printout
 FILES = $(shell grep -v '^\#' runoff.list)
-PRINT = runoff.list runoff.spec README list.txt toc.hdr toc.ftr $(FILES)
+PRINT = runoff.list runoff.spec README toc.hdr toc.ftr $(FILES)
 
 xv6.pdf: $(PRINT)
 	./runoff
