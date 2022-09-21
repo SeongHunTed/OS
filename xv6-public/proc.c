@@ -88,6 +88,8 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
+  // mask 값 0 초기화
+  p->mask = 0;
 
   release(&ptable.lock);
 
@@ -197,11 +199,13 @@ fork(void)
     return -1;
   }
 
-  np->mask = curproc->mask;
   np->sz = curproc->sz;
   np->parent = curproc;
   *np->tf = *curproc->tf;
 
+  // 자식 프로세스에게 mask 전달
+  np->mask = curproc->mask;
+  
   // Clear %eax so that fork returns 0 in the child.
   np->tf->eax = 0;
 

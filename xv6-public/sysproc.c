@@ -94,7 +94,7 @@ int
 sys_memsize(void)
 {
   uint size;
-  // function code
+  // 사이즈 전달
   size = myproc()->sz;
   return size;
 }
@@ -102,10 +102,8 @@ sys_memsize(void)
 int
 sys_trace(void)
 {
-  int n;
-  n = argint(0, &myproc()->mask);
-  if (n < 0) {
-	  return -1;
-  }
+  // 프로세서에 마스크 전달
+  if(argint(0, &myproc()->mask) < 0)
+    return -1;
   return 0;
 }

@@ -132,6 +132,34 @@ static int (*syscalls[])(void) = {
 [SYS_trace]   sys_trace,
 };
 
+char* syscallname[] = {
+
+[SYS_fork]    "fork",
+[SYS_exit]    "exit",
+[SYS_wait]    "wait",
+[SYS_pipe]    "pipe",
+[SYS_read]    "read",
+[SYS_kill]    "kill",
+[SYS_exec]    "exec",
+[SYS_fstat]   "fstat",
+[SYS_chdir]   "chdir",
+[SYS_dup]     "dup",
+[SYS_getpid]  "getpid",
+[SYS_sbrk]    "sbrk",
+[SYS_sleep]   "sleep",
+[SYS_uptime]  "uptime",
+[SYS_open]    "open",
+[SYS_write]   "write",
+[SYS_mknod]   "mknod",
+[SYS_unlink]  "unlink",
+[SYS_link]    "link",
+[SYS_mkdir]   "mkdir",
+[SYS_close]   "close",
+[SYS_memsize] "memsize",
+[SYS_trace]   "trace",
+
+};
+
 void
 syscall(void)
 {
@@ -141,9 +169,14 @@ syscall(void)
   num = curproc->tf->eax;
   if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
     curproc->tf->eax = syscalls[num]();
+    //tracing
+    // cprintf("num : %d\n", num);
+    if ((curproc->mask & 1 << num) && (curproc->mask > 0)) {
+      cprintf("syscall traced: pid: %d, syscall: %s, %d returned\n", 
+      curproc->pid, syscallname[num], curproc->tf->eax);
+    }
   } else {
-    cprintf("%d %s: unknown sys call %d\n",
-            curproc->pid, curproc->name, num);
+    cprintf("%d %s: unknown sys call %d\n", curproc->pid, curproc->name, num);
     curproc->tf->eax = -1;
   }
 }
